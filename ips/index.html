@@ -3,39 +3,32 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>Sage Cell Server</title>
+    <title>Interactive Partial Sums - Sage</title>
     <script src="https://sagecell.sagemath.org/static/jquery.min.js"></script>
     <script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
     <script>$(function () {
-    // Make the div with id 'mycell' a Sage cell
-    sagecell.makeSagecell({inputLocation:  '#mycell',
-                           template:       sagecell.templates.minimal,
-                           evalButtonText: 'Activate'});
     // Make *any* div with class 'compute' a Sage cell
     sagecell.makeSagecell({inputLocation: 'div.compute',
-                           evalButtonText: 'Evaluate'});
+                           evalButtonText: 'Click to Start'});
     });
     </script>
   </head>
   <body>
-  <h1>Embedded Sage Cells</h1>
 
-  <h2>Factorial</h2>
-  Click the “Activate” button below to calculate factorials.
-    <div id="mycell"><script type="text/x-sage">
-@interact
-def _(a=(1, 10)):
-    print factorial(a)
- </script>
-</div>
-
-<h2>Your own computations</h2>
-Type your own Sage computation below and click “Evaluate”.
-    <div class="compute"><script type="text/x-sage">plot(sin(x), (x, 0, 2*pi))</script></div>
+    <div><p>Try not to use too large of an n_max value, otherwise you will run into errors.
+      <br>You must explicitly type out multiplication, so you can't write 2x, rather write 2*x.</p><div>
     <div class="compute"><script type="text/x-sage">
+var('x','n')
 @interact
-def f(n=(0,10)):
-    print 2^n
+def _(initial_value=0,inside_sum = 4/(2*n-1)/pi*sin((2*n-1)*pi*x/pi),n_max=(1..120),
+      xmin=0,xmax=2*pi,ymin=-1.2,ymax=1.2):
+  f = initial_value + sum(inside_sum,n,1,n_max)
+  pt = plot(f, xmin, xmax,  color='green')
+  s_args = latex(initial_value), n_max, latex(inside_sum)
+  the_html = html('$f(x)\;=\; %s + \\displaystyle\\sum_{n=1}^{%s} \; %s$' % s_args) 
+  pretty_print(the_html)
+  show(pt, xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)
 </script></div>
+<div><p>Copyright 2015 - Jimmy</p></div>
   </body>
 </html>
