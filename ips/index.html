@@ -27,11 +27,11 @@
     <div class="compute"><script type="text/x-sage">
 var('x','n')
 @interact
-def _(initial_value=0,inside_sum = 4/(2*n-1)/pi*sin((2*n-1)*pi*x/pi),n_max=(1..120),
+def _(initial_value=0,inside_sum = 4/(2*n-1)/pi*sin((2*n-1)*pi*x/pi),nmax=(1..120),
       xmin=0,xmax=2*pi,ymin=-1.2,ymax=1.2):
-  f = initial_value + sum(inside_sum,n,1,n_max)
+  f = initial_value + sum(inside_sum,n,1,nmax)
   pt = plot(f, xmin, xmax,  color='green')
-  s_args = latex(initial_value), n_max, latex(inside_sum)
+  s_args = latex(initial_value), nmax, latex(inside_sum)
   the_html = html('$f(x)\;=\; %s + \\displaystyle\\sum_{n=1}^{%s} \; %s$' % s_args) 
   pretty_print(the_html)
   show(pt, xmin=xmin, xmax=xmax, ymin=ymin, ymax=ymax)
